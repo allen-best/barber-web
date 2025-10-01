@@ -93,7 +93,7 @@ function HeroSection() {
         
         <p 
           className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-10 max-w-3xl mx-auto font-medium"
-          style={{ color: '#A0522D', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
+          style={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
         >
           Expert Barbering in the Heart of Detroit.
         </p>
