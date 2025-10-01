@@ -16,7 +16,7 @@ const ImageGallery = () => {
 
   return (
     <div id="gallery" className="w-full py-8">
-      <h2 className="text-3xl font-bold mb-6 text-center" style={{ color: '#A0522D' }}>
+      <h2 className="text-3xl font-bold mb-6 text-center" style={{ color: '#000000' }}>
         Gallery
       </h2>
       
@@ -45,7 +45,7 @@ const ImageGallery = () => {
               {/* Overlay effect on hover */}
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                style={{ backgroundColor: '#A0522D' }}
+                style={{ backgroundColor: '#000000' }}
               ></div>
             </div>
           ))}

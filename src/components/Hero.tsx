@@ -77,7 +77,7 @@ function HeroSection() {
       {/* Loading placeholder */}
       {!videoLoaded && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="animate-pulse w-16 h-16 rounded-full" style={{ backgroundColor: '#A0522D' }}></div>
+          <div className="animate-pulse w-16 h-16 rounded-full" style={{ backgroundColor: '#000000' }}></div>
         </div>
       )}
 
@@ -103,7 +103,7 @@ function HeroSection() {
             href="#booking"
             className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 flex items-center justify-center"
             style={{ 
-              backgroundColor: '#A0522D', 
+              backgroundColor: '#000000', 
               color: 'white'
             }}
           >
@@ -114,8 +114,8 @@ function HeroSection() {
             href="#gallery"
             className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 border-2 flex items-center justify-center mt-3 sm:mt-0"
             style={{ 
-              borderColor: '#A0522D',
-              color: '#A0522D',
+              borderColor: '#000000',
+              color: '#000000',
               backgroundColor: 'rgba(244, 244, 244, 0.8)'
             }}
           >

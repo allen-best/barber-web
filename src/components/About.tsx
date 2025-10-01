@@ -12,7 +12,7 @@ function AboutSection() {
         <div>
           <h2 className="font-display text-3xl font-bold text-primary mb-4">About Mazi</h2>
           <p className="text-textPrimary mb-4">
-            Welcome to Mazi Cutz! Located in the heart of Ferndale, I'm Mazi, a passionate barber with [Number] years of experience. I believe that a great haircut is more than just a trim – it's an experience that leaves you feeling confident and refreshed.
+            Come get your haircut by Mazi The Barber! Located in the heart of Ferndale, I'm Mazi, a passionate barber with [Number] years of experience. I believe that a great haircut is more than just a trim – it's an experience that leaves you feeling confident and refreshed.
           </p>
           <p className="text-textPrimary mb-4">
             I specialize in classic cuts, fades, beard grooming, etc. My commitment is to provide personalized service, attention to detail, and the perfect style that suits your individual needs.

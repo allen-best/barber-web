@@ -11,7 +11,7 @@ function Navbar() {
     <nav className="bg-neutral py-4 fixed top-0 w-full z-20">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="/" className="text-2xl font-display text-primary font-bold">
-          Mazi Cutz
+          Mazi The Barber
         </a>
         <div className="hidden md:flex space-x-8 items-center">
           <a href="#about" className="hover:text-accent">About</a>
