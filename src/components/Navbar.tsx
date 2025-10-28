@@ -8,7 +8,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-black py-4 fixed top-0 w-full z-20 border-b border-white/10">
+    <nav className="bg-black/80 backdrop-blur-md py-4 fixed top-0 w-full z-20 border-b border-white/20 shadow-lg">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <a href="/" className="text-2xl font-display text-white font-bold">
           Mazi The Barber
@@ -18,7 +18,7 @@ function Navbar() {
           <a href="#services" className="text-white hover:text-gray-300 transition-colors">Services</a>
           <a href="#faq" className="text-white hover:text-gray-300 transition-colors">FAQ</a>
           <a href="#contact" className="text-white hover:text-gray-300 transition-colors">Contact</a>
-          <a href="#booking" className="bg-white text-black py-2 px-4 rounded-md hover:bg-gray-100 transition-colors font-medium">Book Now</a>
+          <a href="#booking" className="bg-white/90 backdrop-blur-sm text-black py-2 px-4 rounded-md hover:bg-white/100 transition-all duration-300 font-medium shadow-lg border border-white/20">Book Now</a>
         </div>
         {/* Mobile Menu Button */}
         <div className="md:hidden">
@@ -40,13 +40,13 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-black border-b border-white/10 shadow-md transition-all duration-300 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+      <div className={`md:hidden absolute top-full left-0 w-full bg-black/90 backdrop-blur-md border-b border-white/20 shadow-lg transition-all duration-300 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="py-2 px-4 flex flex-col space-y-2">
           <a href="#about" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>About</a>
           <a href="#services" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>Services</a>
           <a href="#faq" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>FAQ</a>
           <a href="#contact" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>Contact</a>
-          <a href="#booking" className="bg-white text-black py-2 px-4 rounded-md hover:bg-gray-100 inline-block transition-colors font-medium" onClick={toggleMobileMenu}>Book Now</a>
+          <a href="#booking" className="bg-white/90 backdrop-blur-sm text-black py-2 px-4 rounded-md hover:bg-white/100 inline-block transition-all duration-300 font-medium shadow-lg border border-white/20" onClick={toggleMobileMenu}>Book Now</a>
         </div>
       </div>
     </nav>

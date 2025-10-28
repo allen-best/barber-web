@@ -18,7 +18,7 @@ function ServicesSection() {
   return (
     <section id="services" className="py-16 bg-black" aria-labelledby="services-heading">
       <div className="container mx-auto px-4 text-center">
-        <h2 id="services-heading" className="font-display text-3xl font-bold text-white mb-8">Our Professional Barber Services</h2>
+        <h2 id="services-heading" className="font-display text-3xl font-bold text-white mb-8">My Professional Barber Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <article key={index} className="bg-white border border-gray-200 rounded-lg shadow-md p-6 hover:bg-gray-50 transition-colors">

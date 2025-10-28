@@ -16,7 +16,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: 'What forms of payment do you accept?',
-    answer: 'I accept [list accepted payment methods].',
+    answer: 'I accept cash, credit cards, and debit cards.',
   },
   // Add more FAQs
 ];
