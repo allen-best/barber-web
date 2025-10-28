@@ -8,23 +8,23 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-neutral py-4 fixed top-0 w-full z-20">
+    <nav className="bg-black py-4 fixed top-0 w-full z-20 border-b border-white/10">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <a href="/" className="text-2xl font-display text-primary font-bold">
+        <a href="/" className="text-2xl font-display text-white font-bold">
           Mazi The Barber
         </a>
         <div className="hidden md:flex space-x-8 items-center">
-          <a href="#about" className="hover:text-accent">About</a>
-          <a href="#services" className="hover:text-accent">Services</a>
-          <a href="#faq" className="hover:text-accent">FAQ</a>
-          <a href="#contact" className="hover:text-accent">Contact</a>
-          <a href="#booking" className="bg-primary text-white py-2 px-4 rounded-md hover:bg-accent">Book Now</a>
+          <a href="#about" className="text-white hover:text-gray-300 transition-colors">About</a>
+          <a href="#services" className="text-white hover:text-gray-300 transition-colors">Services</a>
+          <a href="#faq" className="text-white hover:text-gray-300 transition-colors">FAQ</a>
+          <a href="#contact" className="text-white hover:text-gray-300 transition-colors">Contact</a>
+          <a href="#booking" className="bg-white text-black py-2 px-4 rounded-md hover:bg-gray-100 transition-colors font-medium">Book Now</a>
         </div>
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
             onClick={toggleMobileMenu}
-            className="text-primary focus:outline-none"
+            className="text-white focus:outline-none"
             aria-label="Toggle Menu"
             aria-expanded={isMobileMenuOpen}
           >
@@ -40,13 +40,13 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-neutral shadow-md transition-all duration-300 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+      <div className={`md:hidden absolute top-full left-0 w-full bg-black border-b border-white/10 shadow-md transition-all duration-300 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="py-2 px-4 flex flex-col space-y-2">
-          <a href="#about" className="hover:text-accent py-2 block" onClick={toggleMobileMenu}>About</a>
-          <a href="#services" className="hover:text-accent py-2 block" onClick={toggleMobileMenu}>Services</a>
-          <a href="#faq" className="hover:text-accent py-2 block" onClick={toggleMobileMenu}>FAQ</a>
-          <a href="#contact" className="hover:text-accent py-2 block" onClick={toggleMobileMenu}>Contact</a>
-          <a href="#booking" className="bg-primary text-white py-2 px-4 rounded-md hover:bg-accent inline-block" onClick={toggleMobileMenu}>Book Now</a>
+          <a href="#about" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>About</a>
+          <a href="#services" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>Services</a>
+          <a href="#faq" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>FAQ</a>
+          <a href="#contact" className="text-white hover:text-gray-300 py-2 block transition-colors" onClick={toggleMobileMenu}>Contact</a>
+          <a href="#booking" className="bg-white text-black py-2 px-4 rounded-md hover:bg-gray-100 inline-block transition-colors font-medium" onClick={toggleMobileMenu}>Book Now</a>
         </div>
       </div>
     </nav>

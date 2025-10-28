@@ -2,11 +2,11 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer id="contact" className="bg-primary py-8 text-center text-textWhite">
+    <footer id="contact" className="bg-black py-8 text-center text-white border-t border-gray-800">
       <div className="container mx-auto px-4">
         <h3 className="font-display text-2xl font-semibold mb-4">Contact Mazi</h3>
-        <p className="mb-2">Located in Ferndale</p>
-        <p className="mb-2">Phone: 947-517-5901</p>
+        <p className="mb-2 text-gray-300">Located in Ferndale</p>
+        <p className="mb-2 text-gray-300">Phone: 708-407-0940</p>
         {/* <p className="mb-4">Email: [Your Email Address]</p>*/}
         <div className="flex justify-center space-x-4">
           {/* Add social media icons and links */}
@@ -19,7 +19,7 @@ function Footer() {
           {/* <a href="#" className="hover:text-accent"><svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5c0-2.76 1.69-4.25 4.1-4.25 1.47 0 2.74.1 3.14.15V8h-2.1c-.61 0-1.45.3-1.45 1.3v2.55h3v3H14v6.8c4.56-1 8-5 8-9.8z"/></svg></a> */}
           {/* Add more social icons */}
         </div>
-        <p className="mt-6 text-sm">&copy; {new Date().getFullYear()} Mazi The Barber. All rights reserved.</p>
+        <p className="mt-6 text-sm text-gray-400">&copy; {new Date().getFullYear()} Mazi The Barber. All rights reserved.</p>
       </div>
     </footer>
   );

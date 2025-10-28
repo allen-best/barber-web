@@ -29,19 +29,19 @@ function FAQSection() {
   };
 
   return (
-    <section id="faq" className="py-16 bg-neutral">
+    <section id="faq" className="py-16 bg-black">
       <div className="container mx-auto px-4">
-        <h2 className="font-display text-3xl font-bold text-primary mb-8 text-center">Frequently Asked Questions</h2>
+        <h2 className="font-display text-3xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md">
+            <div key={index} className="bg-white border border-gray-200 rounded-lg shadow-md">
               <button
-                className="w-full text-left py-4 px-6 font-semibold text-accent focus:outline-none"
+                className="w-full text-left py-4 px-6 font-semibold text-black focus:outline-none hover:bg-gray-50 transition-colors"
                 onClick={() => toggleFAQ(index)}
               >
                 {faq.question}
                 <svg
-                  className={`w-4 h-4 inline-block ml-2 transform ${expandedIndex === index ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 inline-block ml-2 transform ${expandedIndex === index ? 'rotate-180' : ''} transition-transform`}
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -49,7 +49,7 @@ function FAQSection() {
                 </svg>
               </button>
               {expandedIndex === index && (
-                <div className="py-2 px-6 text-textSecondary">{faq.answer}</div>
+                <div className="py-2 px-6 text-gray-700 border-t border-gray-200">{faq.answer}</div>
               )}
             </div>
           ))}

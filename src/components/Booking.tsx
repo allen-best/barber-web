@@ -1,97 +1,117 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function BookingSection() {
   const booksyLink = 'https://booksy.com/en-us/dl/show-business/974635';
+  const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {
-    // Create a container div specifically for the Booksy widget
-    const widgetContainer = document.createElement('div');
-    widgetContainer.id = 'booksy-widget-container';
-    
-    // Create the script element with proper attributes
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://booksy.com/widget-2021/code.js?id=974635&country=us&lang=en-US';
-    script.async = false; // Load synchronously to avoid script location issues
-    
-    // Remove any existing Booksy scripts and containers
-    const existingScript = document.querySelector('script[src*="booksy.com/widget-2021/code.js"]');
-    const existingContainer = document.getElementById('booksy-widget-container');
-    if (existingScript) existingScript.remove();
-    if (existingContainer) existingContainer.remove();
-    
-    // Find the target container in our component
-    const targetDiv = document.getElementById('booksy-target');
-    if (targetDiv) {
-      // Clear the target div and append the widget container
-      targetDiv.innerHTML = '';
-      targetDiv.appendChild(widgetContainer);
-      
-      // Append the script right after the container
-      widgetContainer.appendChild(script);
-      
-      script.onload = () => {
-        console.log('Booksy widget script loaded successfully');
-      };
+    // Clear any existing Booksy elements
+    const existingElements = document.querySelectorAll('[id*="booksy"], script[src*="booksy"]');
+    existingElements.forEach(el => {
+      if (el.id !== 'booksy-widget-target') {
+        el.remove();
+      }
+    });
 
-      script.onerror = (error) => {
-        console.error('Error loading Booksy widget script:', error);
-        // Show fallback message
-        if (targetDiv) {
-          targetDiv.innerHTML = `
-            <div class="text-center py-8">
-              <p class="text-gray-500 mb-4">Unable to load booking widget.</p>
-              <a href="${booksyLink}" target="_blank" rel="noopener noreferrer" 
-                 class="inline-block bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800">
-                Book on Booksy
-              </a>
-            </div>
-          `;
-        }
-      };
+    // Create the widget container that Booksy expects
+    const targetElement = document.getElementById('booksy-widget-target');
+    if (targetElement) {
+      // Clear the loading state and create proper widget container
+      targetElement.innerHTML = `
+        <div id="booksy-widget-container-974635"></div>
+      `;
+      
+      // Create script element and append it right after the container
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://booksy.com/widget-2021/code.js?id=974635&country=us&lang=en-US';
+      script.id = 'booksy-script-974635';
+      
+      // Append script right after the container so Booksy can find it
+      targetElement.appendChild(script);
+      
+      // Set a timeout to show fallback if widget doesn't load
+      setTimeout(() => {
+        setShowFallback(true);
+      }, 8000);
     }
 
-    // Cleanup function
     return () => {
-      const scriptToRemove = document.querySelector('script[src*="booksy.com/widget-2021/code.js"]');
-      const containerToRemove = document.getElementById('booksy-widget-container');
-      if (scriptToRemove) scriptToRemove.remove();
-      if (containerToRemove) containerToRemove.remove();
+      // Cleanup
+      const targetElement = document.getElementById('booksy-widget-target');
+      if (targetElement) {
+        targetElement.innerHTML = '';
+      }
+      const scriptToRemove = document.getElementById('booksy-script-974635');
+      if (scriptToRemove) {
+        scriptToRemove.remove();
+      }
     };
-  }, [booksyLink]);
+  }, []);
+
+  const handleDirectBooking = () => {
+    window.open(booksyLink, '_blank');
+  };
 
   return (
-    <section id="booking" className="py-20 bg-gradient-to-b from-white via-white via-80% to-gray-200">
+    <section id="booking" className="py-20 bg-black">
       <div className="container mx-auto px-4 md:px-20 text-center">
-        <h2 className="font-display text-3xl font-bold text-primary mb-8">Book Your Appointment</h2>
-        <p className="text-lg text-textSecondary mb-8">
+        <h2 className="font-display text-3xl font-bold text-white mb-8">Book Your Appointment</h2>
+        
+        <p className="text-lg text-gray-300 mb-8">
           Ready for a fresh look? Booking is easy through my Booksy calendar.
         </p>
-        
-        {/* Booksy Widget Target Container */}
-        <div className="mb-8 w-full max-w-4xl mx-auto">
-          <div id="booksy-target" className="w-full h-full flex items-center justify-center">
-            <div className="text-gray-500">
-              Loading booking calendar...
+
+        <div 
+          id="booksy-widget-target" 
+          className="mb-8 min-h-[100px] w-full max-w-4xl mx-auto rounded-lg overflow-hidden"
+        >
+          {/* Booksy widget will load here, or show loading/fallback state */}
+          {!showFallback ? (
+            <div className="flex items-center justify-center h-96 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
+                <p className="text-white/60 text-sm">Loading Booksy booking widget...</p>
+              </div>
             </div>
+          ) : (
+            <div className="flex items-center justify-center h-96 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+              <div className="text-center">
+                <p className="text-white mb-4">Having trouble loading the booking widget?</p>
+                <button
+                  onClick={handleDirectBooking}
+                  className="bg-white text-black px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300"
+                >
+                  Book Directly on Booksy
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8">
+          <button
+            onClick={handleDirectBooking}
+            className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+          >
+            Book Directly on Booksy
+          </button>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="bg-white/5 backdrop-blur-sm p-6 rounded-lg border border-white/10">
+            <div className="text-2xl font-bold text-white mb-2">Online</div>
+            <div className="text-gray-300">Easy booking through Booksy</div>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm p-6 rounded-lg border border-white/10">
+            <div className="text-2xl font-bold text-white mb-2">Flexible</div>
+            <div className="text-gray-300">Multiple time slots available</div>
+          </div>
+          <div className="bg-white/5 backdrop-blur-sm p-6 rounded-lg border border-white/10">
+            <div className="text-2xl font-bold text-white mb-2">Confirmed</div>
+            <div className="text-gray-300">Instant booking confirmation</div>
           </div>
         </div>
-        
-        {/* Fallback button 
-        <div className="mt-6">
-          <a
-            href={booksyLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-black text-white py-3 px-8 rounded-md text-lg hover:bg-gray-800 transition-colors duration-300 shadow-lg"
-          >
-            Book Now on Booksy
-          </a>
-        </div>*/}
-        
-        <p className="mt-8 text-sm text-gray-500">
-          For inquiries or special requests, please contact me directly at 947-517-5901.
-        </p>
       </div>
     </section>
   );

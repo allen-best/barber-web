@@ -11,7 +11,9 @@ const heroVideos = [
   'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_2658.mov',
   'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_3274.mov',
   'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_4389.mov',
-  'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_9349.mov'
+  'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_9349.mov',
+  'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_4919.mov',
+  'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/Hero-videos/IMG_4872.mov',
   // Add more video URLs here as needed
 ];
 
@@ -63,7 +65,7 @@ function HeroSection() {
   }, [currentVideoUrl]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#f4f4f4' }}>
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background Video */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <video
@@ -72,23 +74,21 @@ function HeroSection() {
           loop
           muted
           playsInline
-          className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? 'opacity-70' : 'opacity-0'}`}
+          className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? 'opacity-40' : 'opacity-0'}`}
         >
           {/* Use selected video from collection */}
           {currentVideoUrl && <source src={currentVideoUrl} type="video/mp4" />}
           Your browser does not support the video tag.
         </video>
         
-        {/* Video Overlay - Darker for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-60"></div>
-        {/* Color filter in brand colors */}
-        <div className="absolute inset-0" style={{ backgroundColor: '#D2B48C', mixBlendMode: 'color', opacity: 0.3 }}></div>
+        {/* Video Overlay - Pure black for modern look */}
+        <div className="absolute inset-0 bg-black opacity-60"></div>
       </div>
 
       {/* Loading placeholder */}
       {!videoLoaded && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="animate-pulse w-16 h-16 rounded-full" style={{ backgroundColor: '#000000' }}></div>
+          <div className="animate-pulse w-16 h-16 rounded-full bg-white"></div>
         </div>
       )}
 
@@ -114,8 +114,8 @@ function HeroSection() {
             href="#booking"
             className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 flex items-center justify-center"
             style={{ 
-              backgroundColor: '#000000', 
-              color: 'white'
+              backgroundColor: 'rgba(244, 244, 244, 0.8)', 
+              color: '#000000'
             }}
           >
             Book Your Transformation
