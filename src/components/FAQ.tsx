@@ -29,29 +29,40 @@ function FAQSection() {
   };
 
   return (
-    <section id="faq" className="py-16 bg-black">
+    <section id="faq" className="py-16 bg-black" aria-labelledby="faq-heading">
       <div className="container mx-auto px-4">
-        <h2 className="font-display text-3xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
-        <div className="space-y-4">
+        <h2 id="faq-heading" className="font-display text-3xl font-bold text-white mb-8 text-center">Frequently Asked Questions</h2>
+        <div className="space-y-4" role="list">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-white border border-gray-200 rounded-lg shadow-md">
+            <article key={index} className="bg-white border border-gray-200 rounded-lg shadow-md" role="listitem">
               <button
                 className="w-full text-left py-4 px-6 font-semibold text-black focus:outline-none hover:bg-gray-50 transition-colors"
                 onClick={() => toggleFAQ(index)}
+                aria-expanded={expandedIndex === index}
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-question-${index}`}
               >
                 {faq.question}
                 <svg
                   className={`w-4 h-4 inline-block ml-2 transform ${expandedIndex === index ? 'rotate-180' : ''} transition-transform`}
                   fill="currentColor"
                   viewBox="0 0 20 20"
+                  aria-hidden="true"
                 >
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
               {expandedIndex === index && (
-                <div className="py-2 px-6 text-gray-700 border-t border-gray-200">{faq.answer}</div>
+                <div 
+                  className="py-2 px-6 text-gray-700 border-t border-gray-200"
+                  id={`faq-answer-${index}`}
+                  aria-labelledby={`faq-question-${index}`}
+                  role="region"
+                >
+                  {faq.answer}
+                </div>
               )}
-            </div>
+            </article>
           ))}
         </div>
       </div>

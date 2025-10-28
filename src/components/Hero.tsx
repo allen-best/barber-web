@@ -65,24 +65,29 @@ function HeroSection() {
   }, [currentVideoUrl]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Background Video */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${videoLoaded ? 'opacity-40' : 'opacity-0'}`}
-        >
-          {/* Use selected video from collection */}
-          {currentVideoUrl && <source src={currentVideoUrl} type="video/mp4" />}
-          Your browser does not support the video tag.
-        </video>
+    <main className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        {currentVideoUrl && (
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero-poster.jpg"
+            aria-label="Barber cutting hair - background video"
+          >
+            <source src={currentVideoUrl} type="video/mp4" />
+            <source src={currentVideoUrl} type="video/quicktime" />
+            Your browser does not support the video tag.
+          </video>
+        )}
         
-        {/* Video Overlay - Pure black for modern look */}
-        <div className="absolute inset-0 bg-black opacity-60"></div>
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black opacity-40"></div>
       </div>
 
       {/* Loading placeholder */}
@@ -154,7 +159,7 @@ function HeroSection() {
           <path d="M12 5v14M5 12l7 7 7-7"/>
         </svg>
       </div>
-    </section>
+    </main>
   );
 }
 
