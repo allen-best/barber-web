@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Reveal from './Reveal';
+import { trackEvent } from '../utils/analytics';
 
 interface FAQItem {
   question: string;
@@ -26,7 +27,11 @@ function FAQSection() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    const isOpening = expandedIndex !== index;
+    setExpandedIndex(isOpening ? index : null);
+    if (isOpening) {
+      trackEvent('faq_expand', { question: faqs[index].question });
+    }
   };
 
   return (

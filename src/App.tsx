@@ -1,9 +1,20 @@
 import {encodedBarberImage} from './components/constants/logo';
 import { setupSocialMediaMeta } from './utils/socialMeta';
+import { trackPageView } from './utils/analytics';
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import AppComponents from './Home-Page';
 import AuthCallback from './Auth-Callback';
+
+function PageViewTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
 
 function App() {
   useEffect(() => {
@@ -26,6 +37,7 @@ function App() {
 
   return (
     <Router>
+      <PageViewTracker />
       <Routes>
         <Route path="/" element={<AppComponents />} />
         <Route path="/auth" element={<AuthCallback />} />

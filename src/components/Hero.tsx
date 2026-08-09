@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { trackEvent } from '../utils/analytics';
 
 // Collection of hero videos
 const heroVideos = [
@@ -131,6 +132,7 @@ function HeroSection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mt-2">
           <a
             href="#booking"
+            onClick={() => trackEvent('book_now_click', { source: 'hero_cta' })}
             className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-bold shadow-2xl shadow-white/20 transform hover:scale-105 hover:shadow-white/40 transition duration-300 flex items-center justify-center bg-white text-black hover:bg-gray-100"
           >
             Book Your Transformation
@@ -138,6 +140,7 @@ function HeroSection() {
 
           <a
             href="#gallery"
+            onClick={() => trackEvent('see_work_click', { source: 'hero_cta' })}
             className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 border-2 border-white/70 text-white flex items-center justify-center mt-3 sm:mt-0 backdrop-blur-sm hover:bg-white/10"
           >
             See my work

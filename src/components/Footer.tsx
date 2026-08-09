@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackEvent } from '../utils/analytics';
 
 function Footer() {
   return (
@@ -14,7 +15,7 @@ function Footer() {
           </p>
           <p className="mb-2 text-gray-300">
             <span className="sr-only">Phone:</span>
-            <a href="tel:708-407-0940" className="hover:text-white transition-colors">
+            <a href="tel:708-407-0940" onClick={() => trackEvent('phone_click')} className="hover:text-white transition-colors">
               Phone: 708-407-0940
             </a>
           </p>
@@ -23,6 +24,7 @@ function Footer() {
               href="https://booksy.com/en-us/dl/show-business/974635"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('booking_click', { source: 'footer_link' })}
               className="hover:text-white transition-colors underline"
             >
               Book Online via Booksy
@@ -35,6 +37,7 @@ function Footer() {
             href="https://www.instagram.com/mazitb_"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent('instagram_click')}
             className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
             aria-label="Follow Mazi The Barber on Instagram"
           >

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Reveal from './Reveal';
+import { trackEvent } from '../utils/analytics';
 
 // Defers fetching a gallery video's bytes until it's about to scroll into view,
 // so the browser doesn't try to pull all 12 clips down at once on page load.
@@ -95,6 +96,7 @@ const Social = () => {
 
   const openLightbox = (item: { src: string; type: 'image' | 'video' }) => {
     setSelectedItem(item);
+    trackEvent('gallery_item_open', { type: item.type });
   };
 
   const closeLightbox = () => {
@@ -108,6 +110,8 @@ const Social = () => {
   const toggleShowAll = () => {
     if (showAll) {
       gridTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      trackEvent('gallery_view_more_click');
     }
     setShowAll(!showAll);
   };

@@ -130,6 +130,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://booksy.com">
     <link rel="preconnect" href="https://dkduedwvufcf6nhq.public.blob.vercel-storage.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8L8P31QD75"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      // Page views are sent manually from the app on route changes (see src/utils/analytics.ts),
+      // so this initial config call shouldn't also fire one and double-count the first view.
+      gtag('config', 'G-8L8P31QD75', { send_page_view: false });
+    </script>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Bebas+Neue&display=swap" rel="stylesheet">

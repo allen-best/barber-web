@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Reveal from './Reveal';
+import { trackEvent } from '../utils/analytics';
 
 function BookingSection() {
   const booksyLink = 'https://booksy.com/en-us/dl/show-business/974635';
@@ -50,7 +51,8 @@ function BookingSection() {
     };
   }, []);
 
-  const handleDirectBooking = () => {
+  const handleDirectBooking = (source: 'primary_button' | 'widget_fallback') => {
+    trackEvent('booking_click', { source });
     window.open(booksyLink, '_blank');
   };
 
@@ -88,7 +90,7 @@ function BookingSection() {
               <div className="text-center">
                 <p className="text-white mb-4">Having trouble loading the booking widget?</p>
                 <button
-                  onClick={handleDirectBooking}
+                  onClick={() => handleDirectBooking('widget_fallback')}
                   className="bg-white text-black px-6 py-2 rounded-lg font-semibold hover:bg-gray-200 transition-colors duration-300"
                 >
                   Book Directly on Booksy
@@ -100,7 +102,7 @@ function BookingSection() {
 
         <div className="mt-8">
           <button
-            onClick={handleDirectBooking}
+            onClick={() => handleDirectBooking('primary_button')}
             className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-white/20 hover:shadow-white/40"
           >
             Book Directly on Booksy

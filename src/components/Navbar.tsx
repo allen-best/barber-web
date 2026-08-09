@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackEvent } from '../utils/analytics';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,7 +25,7 @@ function Navbar() {
           <a href="#services" className="relative text-white/80 hover:text-white transition-colors text-sm font-medium uppercase tracking-wide group">Services<span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span></a>
           <a href="#faq" className="relative text-white/80 hover:text-white transition-colors text-sm font-medium uppercase tracking-wide group">FAQ<span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span></a>
           <a href="#contact" className="relative text-white/80 hover:text-white transition-colors text-sm font-medium uppercase tracking-wide group">Contact<span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span></a>
-          <a href="#booking" className="bg-white text-black py-2 px-5 rounded-full hover:scale-105 hover:bg-gray-100 transition-all duration-300 font-bold text-sm shadow-lg shadow-black/30">
+          <a href="#booking" onClick={() => trackEvent('book_now_click', { source: 'navbar_desktop' })} className="bg-white text-black py-2 px-5 rounded-full hover:scale-105 hover:bg-gray-100 transition-all duration-300 font-bold text-sm shadow-lg shadow-black/30">
             Book Now
           </a>
         </div>
@@ -55,7 +56,7 @@ function Navbar() {
           <a href="#services" className="text-white/80 hover:text-white py-2 block transition-colors" onClick={toggleMobileMenu}>Services</a>
           <a href="#faq" className="text-white/80 hover:text-white py-2 block transition-colors" onClick={toggleMobileMenu}>FAQ</a>
           <a href="#contact" className="text-white/80 hover:text-white py-2 block transition-colors" onClick={toggleMobileMenu}>Contact</a>
-          <a href="#booking" className="bg-white text-black py-2 px-4 rounded-full inline-block hover:bg-gray-100 transition-all duration-300 font-semibold shadow-lg shadow-black/30" onClick={toggleMobileMenu}>
+          <a href="#booking" className="bg-white text-black py-2 px-4 rounded-full inline-block hover:bg-gray-100 transition-all duration-300 font-semibold shadow-lg shadow-black/30" onClick={() => { trackEvent('book_now_click', { source: 'navbar_mobile' }); toggleMobileMenu(); }}>
             Book Now
           </a>
         </div>
