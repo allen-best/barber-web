@@ -1,4 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Reveal from './Reveal';
+
+// Defers fetching a gallery video's bytes until it's about to scroll into view,
+// so the browser doesn't try to pull all 12 clips down at once on page load.
+function LazyGalleryVideo({ src, className }: { src: string; className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="w-full h-64 bg-white/5">
+      {shouldLoad && (
+        <video src={src} className={className} muted preload="metadata" />
+      )}
+    </div>
+  );
+}
 
 const galleryImages = [
   'https://dkduedwvufcf6nhq.public.blob.vercel-storage.com/mazi-image-1.jpeg',
@@ -35,8 +68,30 @@ const galleryItems = [
   ...galleryVideos.map(src => ({ src, type: 'video' as const }))
 ];
 
+const INITIAL_VISIBLE_COUNT_MOBILE = 3;
+const INITIAL_VISIBLE_COUNT_DESKTOP = 8;
+
+// Matches Tailwind's `sm` breakpoint (640px), where the grid moves off grid-cols-1
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 639px)').matches
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 639px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return isMobile;
+}
+
 const Social = () => {
   const [selectedItem, setSelectedItem] = useState<{ src: string; type: 'image' | 'video' } | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const gridTopRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const openLightbox = (item: { src: string; type: 'image' | 'video' }) => {
     setSelectedItem(item);
@@ -46,24 +101,41 @@ const Social = () => {
     setSelectedItem(null);
   };
 
+  const initialVisibleCount = isMobile ? INITIAL_VISIBLE_COUNT_MOBILE : INITIAL_VISIBLE_COUNT_DESKTOP;
+  const visibleItems = showAll ? galleryItems : galleryItems.slice(0, initialVisibleCount);
+  const hasMore = galleryItems.length > initialVisibleCount;
+
+  const toggleShowAll = () => {
+    if (showAll) {
+      gridTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setShowAll(!showAll);
+  };
+
   return (
-    <div id="gallery" className="w-full py-16 bg-black">
+    <div id="gallery" className="w-full py-16 bg-black relative overflow-hidden">
+      <div className="absolute -right-32 top-0 w-96 h-96 bg-white/[0.04] rounded-full blur-[100px] pointer-events-none"></div>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+        <Reveal className="text-center mb-12">
+          <span className="text-white text-xs font-bold tracking-[0.35em] uppercase mb-3 flex items-center justify-center gap-3">
+            <span className="w-8 h-px bg-white/60"></span>
+            Portfolio
+            <span className="w-8 h-px bg-white/60"></span>
+          </span>
+          <h2 className="font-display text-5xl md:text-6xl tracking-wide mb-4 mt-3 text-white">
             My Work
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Take a look at my finest cuts and styles in photos and videos. Each piece tells a story of precision, artistry, and confidence.
           </p>
-          <div className="w-24 h-1 bg-white mx-auto mt-6"></div>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {galleryItems.map((item, idx) => (
-            <div 
-              key={idx} 
-              className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.02] cursor-pointer border border-white/10"
+          <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mt-6"></div>
+        </Reveal>
+
+        <div ref={gridTopRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {visibleItems.map((item, idx) => (
+            <div
+              key={idx}
+              className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl hover:shadow-black/70 transition-all duration-500 transform hover:scale-[1.02] cursor-pointer border border-white/10 hover:border-white/40"
               onClick={() => openLightbox(item)}
             >
               {item.type === 'image' ? (
@@ -75,11 +147,9 @@ const Social = () => {
                 />
               ) : (
                 <div className="relative">
-                  <video
+                  <LazyGalleryVideo
                     src={item.src}
                     className="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110"
-                    muted
-                    preload="metadata"
                   />
                   {/* Video play icon overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -116,19 +186,39 @@ const Social = () => {
           ))}
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-            <div className="text-3xl font-bold text-black mb-2">{galleryItems.length}+</div>
-            <div className="text-gray-700">Showcase Pieces</div>
+        {hasMore && (
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={toggleShowAll}
+              className="inline-flex items-center gap-2 py-3 px-8 rounded-full text-base font-bold border-2 border-white/70 text-white hover:bg-white/10 transition-all duration-300"
+            >
+              {showAll ? 'View Less' : 'View More'}
+              <svg
+                className={`w-4 h-4 transform transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-            <div className="text-3xl font-bold text-black mb-2">100%</div>
-            <div className="text-gray-700">Satisfied Clients</div>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-            <div className="text-3xl font-bold text-black mb-2">Expert</div>
-            <div className="text-gray-700">Craftsmanship</div>
-          </div>
+        )}
+
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <Reveal delay={0} className="bg-white/[0.04] backdrop-blur-sm p-6 rounded-lg border border-white/10 hover:border-white/40 hover:-translate-y-1 transition-all duration-300">
+            <div className="text-3xl font-black text-white mb-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]">{galleryItems.length}+</div>
+            <div className="text-gray-300">Showcase Pieces</div>
+          </Reveal>
+          <Reveal delay={80} className="bg-white/[0.04] backdrop-blur-sm p-6 rounded-lg border border-white/10 hover:border-white/40 hover:-translate-y-1 transition-all duration-300">
+            <div className="text-3xl font-black text-white mb-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]">100%</div>
+            <div className="text-gray-300">Satisfied Clients</div>
+          </Reveal>
+          <Reveal delay={160} className="bg-white/[0.04] backdrop-blur-sm p-6 rounded-lg border border-white/10 hover:border-white/40 hover:-translate-y-1 transition-all duration-300">
+            <div className="text-3xl font-black text-white mb-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]">Expert</div>
+            <div className="text-gray-300">Craftsmanship</div>
+          </Reveal>
         </div>
       </div>
 

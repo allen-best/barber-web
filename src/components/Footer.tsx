@@ -2,14 +2,15 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer id="contact" className="bg-black py-8 text-center text-white border-t border-gray-800" role="contentinfo">
+    <footer id="contact" className="bg-black py-12 text-center text-white border-t border-white/15" role="contentinfo">
       <div className="container mx-auto px-4">
-        <h3 className="font-display text-2xl font-semibold mb-4">Contact Mazi The Barber</h3>
-        
+        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-6"></div>
+        <h3 className="font-display text-3xl tracking-wide mb-4">Contact Mazi The Barber</h3>
+
         <address className="not-italic mb-6">
           <p className="mb-2 text-gray-300">
             <span className="sr-only">Location:</span>
-            Located in <strong>Ferndale, Michigan</strong>
+            Located in <strong className="text-white">Ferndale, Michigan</strong>
           </p>
           <p className="mb-2 text-gray-300">
             <span className="sr-only">Phone:</span>
@@ -18,9 +19,9 @@ function Footer() {
             </a>
           </p>
           <p className="mb-4 text-gray-300">
-            <a 
-              href="https://booksy.com/en-us/dl/show-business/974635" 
-              target="_blank" 
+            <a
+              href="https://booksy.com/en-us/dl/show-business/974635"
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white transition-colors underline"
             >
@@ -30,11 +31,11 @@ function Footer() {
         </address>
 
         <nav aria-label="Social media links" className="flex justify-center space-x-4 mb-6">
-          <a 
-            href="https://www.instagram.com/mazitb_" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hover:text-white transition-colors"
+          <a
+            href="https://www.instagram.com/mazitb_"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/15 text-gray-300 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
             aria-label="Follow Mazi The Barber on Instagram"
           >
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
@@ -43,7 +44,7 @@ function Footer() {
           </a>
         </nav>
 
-        <p className="mt-6 text-sm text-gray-400">
+        <p className="mt-6 text-sm text-gray-500">
           &copy; {new Date().getFullYear()} <strong>Mazi The Barber</strong>. All rights reserved. 
           <span className="block mt-1">Professional barber services in Ferndale, Michigan</span>
         </p>

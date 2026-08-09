@@ -6,12 +6,14 @@ import BookingSection from './components/Booking';
 import FAQSection from './components/FAQ';
 import Footer from './components/Footer';
 import InstagramGallery from './components/Social';
+import Marquee from './components/Marquee';
 
 export default function AppComponents() {
   return(
   <div>
       <Navbar />
       <HeroSection />
+      <Marquee />
       <AboutSection />
       <ServicesSection />
       <BookingSection />

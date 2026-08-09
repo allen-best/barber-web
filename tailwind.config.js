@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#000000', // Sienna - A nice brown
-        secondary: '#D2B48C', // Tan - Lighter brown accent
+        primary: '#000000',
+        secondary: '#A1A1AA', // Muted steel gray - subtle accents/labels
         accent: '#4A3B31', // Dark Chocolate - For emphasis
         neutral: '#f4f4f4', // Light gray for backgrounds
         textPrimary: '#333333', // Dark text
@@ -16,7 +16,7 @@ export default {
         textWhite: '#FFFFFF', // White text
       },
       fontFamily: {
-        'display': ['Inter', 'sans-serif'], // Elegant serif for headings
+        'display': ['"Bebas Neue"', 'sans-serif'], // Condensed editorial headline face
         'body': ['Montserrat', 'sans-serif'], // Clean sans-serif for body
       },
       spacing: {

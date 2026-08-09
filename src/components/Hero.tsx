@@ -77,7 +77,6 @@ function HeroSection() {
             loop
             playsInline
             preload="metadata"
-            poster="/hero-poster.jpg"
             aria-label="Barber cutting hair - background video"
           >
             <source src={currentVideoUrl} type="video/mp4" />
@@ -86,8 +85,14 @@ function HeroSection() {
           </video>
         )}
         
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black opacity-40"></div>
+        {/* Vignette for depth + text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/35 to-black/85"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
+      </div>
+
+      {/* Soft light spotlight behind headline */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[500px] h-[500px] md:w-[700px] md:h-[700px] bg-white/10 rounded-full blur-[100px]"></div>
       </div>
 
       {/* Loading placeholder */}
@@ -99,43 +104,43 @@ function HeroSection() {
 
       {/* Content - Improved spacing for mobile */}
       <div className="container mx-auto px-4 text-center relative z-10 py-8 md:py-16">
-        <h1 
-          className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:mb-6 leading-tight tracking-tight"
-          style={{ color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
+        <span
+          className="inline-flex items-center gap-3 text-white text-xs md:text-sm font-bold tracking-[0.35em] uppercase mb-4 md:mb-6"
+          style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.6)' }}
         >
-          <span className="block transform hover:scale-105 transition-transform duration-300 mb-1 md:mb-2">Chicago’s Confidence.</span>
-          <strong className="block transform hover:scale-105 transition-transform duration-300">Detroit’s Skill.</strong>
+          <span className="w-8 h-px bg-white/60"></span>
+          Ferndale, Michigan
+          <span className="w-8 h-px bg-white/60"></span>
+        </span>
+
+        <h1
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-4 md:mb-6 leading-[0.95] tracking-wide"
+          style={{ color: 'white', textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}
+        >
+          <span className="block mb-1 md:mb-2">Chicago's Confidence.</span>
+          <strong className="block font-display text-white">Detroit's Skill.</strong>
         </h1>
-        
-        <p 
+
+        <p
           className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-8 md:mb-10 max-w-3xl mx-auto font-medium"
           style={{ color: 'white', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
         >
           Expert barbering experience like no other
         </p>
-        
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mt-2">
           <a
             href="#booking"
-            className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 flex items-center justify-center"
-            style={{ 
-              backgroundColor: 'rgba(244, 244, 244, 0.8)', 
-              color: '#000000'
-            }}
+            className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-bold shadow-2xl shadow-white/20 transform hover:scale-105 hover:shadow-white/40 transition duration-300 flex items-center justify-center bg-white text-black hover:bg-gray-100"
           >
             Book Your Transformation
           </a>
-          
+
           <a
             href="#gallery"
-            className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 border-2 flex items-center justify-center mt-3 sm:mt-0"
-            style={{ 
-              borderColor: '#000000',
-              color: '#000000',
-              backgroundColor: 'rgba(244, 244, 244, 0.8)'
-            }}
+            className="w-full sm:w-auto py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-lg font-semibold shadow-lg transform hover:scale-105 transition duration-300 border-2 border-white/70 text-white flex items-center justify-center mt-3 sm:mt-0 backdrop-blur-sm hover:bg-white/10"
           >
-            See my work 
+            See my work
           </a>
         </div>
       </div>
